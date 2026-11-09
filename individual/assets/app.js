@@ -1,0 +1,4 @@
+const tabs=[...document.querySelectorAll('[role=tab]')];
+function activate(index){tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=i!==index;});}
+tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>activate(i));tab.addEventListener('keydown',e=>{let n;if(e.key==='ArrowRight')n=(i+1)%tabs.length;if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==undefined){e.preventDefault();activate(n);tabs[n].focus();}});});
+document.getElementById('buscar')?.addEventListener('input',event=>{const q=event.target.value.toLocaleLowerCase('es');document.querySelectorAll('#alumnos tr').forEach((row,i)=>{if(i)row.hidden=!row.textContent.toLocaleLowerCase('es').includes(q);});});
